@@ -1,0 +1,131 @@
+
+{%load static%}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v3.8.6">
+        <title>{{title}}</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
+
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <script src="https://kit.fontawesome.com/66e5ad36de.js" crossorigin="anonymous"></script>
+        <link href="{% static 'css/cover.css' %}" rel="stylesheet">
+        <!-- Include this in your HTML file's <head> section -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Optima">
+
+    </head>
+
+    
+    
+        <div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
+            <header class="masthead mb-auto">
+                <div class="inner">
+                    <h3 class="masthead-brand" style='color:white;'>ARBISOFT</h3>
+                    {% include 'navbar.html' %}
+                </div>
+            </header>
+
+    <body>
+            <main role="main" class="inner cover">	  
+               
+                <br><br><br><br><br><br><br><div class="header">{{title}}</div><br><br>
+                
+            <div class="row"><!--Start of row-->
+                <div class="col-sm-2">
+                    <br><br>
+                    <div class="table-striped table-sm">     
+                    <form  method='POST' action='' >{% csrf_token %} 
+                        {{form|crispy}}
+                        <div><input style="background-color: #282828;" class="btn btn-primary mybutton" type="submit" value='Search' /></div> 
+                    </form>
+                    </div>
+                    <br>
+                    <br>
+                    <a href="/add_item"><div class="btn btn-primary mybutton">Add Items</div></a><br><br>
+                    <a href="/list_history"><div class="btn btn-primary mybutton">List History</div></a><br>
+                </div>
+                <tbody >
+                <div class="col-sm-10">
+                    <table class="table">
+                        <tr>
+                            
+                        <!--<th>Count</th>-->
+                            <th>Category</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>REORDER LIMIT</th>
+                            <th>Last Updated</th>
+                            <!--<th>Time Stamp</th>-->
+                            <th>DELETE</th>
+                            
+                        </tr>
+                        
+                        <br>
+                        {% for instance in queryset %}
+                        <tr>
+                            <!--<td>{{forloop.counter}}</td>-->
+                            <td>{{instance.category}}</td>
+                            <td><a style="color:#000000;" href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
+                            <td>
+                                {% if instance.quantity < instance.reorder_level %}
+                                <div style="background-color: red;">
+                                    <a style="color:#000000;" href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+                                </div>
+                                {% else %}
+                                <a style="color:#000000;" href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+                                {% endif %}
+                            </td>
+                            <td><a style="color:#000000;"href="{% url 'reorder_level' instance.id %}">{{instance.reorder_level}}</a></td>
+                            <td>{{instance.last_updated}}</td>
+                            <!--<td>{{instance.timestamp}}</td>-->
+                            <td><a style="color:#000000;" href="{% url 'delete_item' instance.id %}"><i class="fa-solid fa-trash"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    
+                        <br>
+                        {% if messages %}
+                            <ul  class="messages">
+                                {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                        </ul>
+                            {% endif %}
+                    
+                </div>
+                </tbody>
+            </div>
+        </main>
+
+            <footer class="mastfoot mt-auto">
+                <div class="inner">
+                    <br><br><br><br><br><br><br><br><br><br><br><br>
+                <p>Fateh Ali Alim</p>
+                </div>
+            </footer>
+        </div>
+    </body>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/pager/paging.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <script src="{% static 'js/nprogress/nprogress.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+</html>
