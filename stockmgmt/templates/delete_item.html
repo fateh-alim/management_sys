@@ -46,7 +46,11 @@
      <div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
          <header class="masthead mb-auto">
              <div class="inner">
-             <h3 class="masthead-brand">ARBISOFT</h3>
+                {% if request.user.is_authenticated %}
+                <a href="/"><h3 class="masthead-brand" style='color:white;'>ARBISOFT</h3></a>
+                {% else %}
+                <h3 class="masthead-brand" style='color:white;'>ARBISOFT</h3>
+                {% endif %}
              {% include 'navbar.html' %}
              </div>
          </header>

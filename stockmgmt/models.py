@@ -28,6 +28,9 @@ class Stock(models.Model):
 	last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
+	def __str__(self):
+		return self.name
+	
 class StockHistory(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
 	item_name = models.CharField(max_length=50, blank=True, null=True)
@@ -43,6 +46,5 @@ class StockHistory(models.Model):
 	last_updated = models.DateTimeField(auto_now_add=False, auto_now=False, null=True)
 	timestamp = models.DateTimeField(auto_now_add=False, auto_now=False, null=True)
 
-	def __str__(self):
-		return self.item_name + " " + str(self.quantity)
+
 	

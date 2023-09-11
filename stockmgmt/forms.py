@@ -1,6 +1,5 @@
 from django import forms
-from .models import Stock, StockHistory
-
+from .models import Stock, StockHistory, Category
 
 
 class StockCreateForm(forms.ModelForm):
@@ -20,7 +19,12 @@ class StockCreateForm(forms.ModelForm):
 		if not item_name:
 			raise forms.ValidationError('This field is required')
 		return item_name
-
+	
+class CategoryCreateForm(forms.ModelForm):
+	class Meta:
+		model = Category
+		fields = ['name']
+		
 class StockSearchForm(forms.ModelForm):
    export_to_CSV = forms.BooleanField(required=False)
    class Meta:
