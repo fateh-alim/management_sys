@@ -127,7 +127,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+
+
 STATIC_URL = '/static/'
+
+#Add this in your settings.py file:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

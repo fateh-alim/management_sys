@@ -21,6 +21,9 @@ from django.urls import include
 
 urlpatterns = [
     path('', login_views.home, name='home'),
+    path('signin/', login_views.signin, name='Signin'),
+    path('signup/', login_views.signup, name='Signup'),
+    path('signout/', login_views.signout, name='Signout'),
     path('list_item/', mg_views.list_item, name='list_item'),
     path('add_item/', mg_views.add_item, name='add_item'),
     path('add_category/', mg_views.add_category, name='add_category'),

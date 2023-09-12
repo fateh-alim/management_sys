@@ -1,12 +1,17 @@
 /*
  * Globals
  */
+ .alert{
+  border: 0px;
+  background-color: #d6d6d6;
+ }
 /*Table paination styling*/
 .paging-nav {
   text-align: right;
   padding-top: 2px;
   font-size: 20px;
   padding-bottom: 10px;
+  
 }
 
 .paging-nav a {
@@ -90,7 +95,7 @@ a:hover {
 }/*
  * Base structure for home
  */
-
+ 
 html,
 body {
   margin: auto;
