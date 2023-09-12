@@ -15,21 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stockmgmt import views
+from stockmgmt import views as mg_views
+from login_auth import views as login_views
 from django.urls import include
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('list_item/', views.list_item, name='list_item'),
-    path('add_item/', views.add_item, name='add_item'),
-    path('add_category/', views.add_category, name='add_category'),
-    path('update_item/<str:pk>/', views.update_item, name="update_item"),
-    path('delete_item/<str:pk>/', views.delete_item, name="delete_item"),
-    path('stock_detail/<str:pk>/', views.stock_detail, name="stock_detail"),
-    path('issue_item/<str:pk>/', views.issue_item, name="issue_item"),
-    path('receive_item/<str:pk>/', views.receive_item, name="receive_item"),
-    path('reorder_level/<str:pk>/', views.reorder_level, name="reorder_level"),
+    path('', login_views.home, name='home'),
+    path('list_item/', mg_views.list_item, name='list_item'),
+    path('add_item/', mg_views.add_item, name='add_item'),
+    path('add_category/', mg_views.add_category, name='add_category'),
+    path('update_item/<str:pk>/', mg_views.update_item, name="update_item"),
+    path('delete_item/<str:pk>/', mg_views.delete_item, name="delete_item"),
+    path('stock_detail/<str:pk>/', mg_views.stock_detail, name="stock_detail"),
+    path('issue_item/<str:pk>/', mg_views.issue_item, name="issue_item"),
+    path('receive_item/<str:pk>/', mg_views.receive_item, name="receive_item"),
+    path('reorder_level/<str:pk>/', mg_views.reorder_level, name="reorder_level"),
     path('account/', include('registration.backends.default.urls')),
-    path('list_history/', views.list_history, name='list_history'),
+    path('list_history/', mg_views.list_history, name='list_history'),
     path('admin/', admin.site.urls),
 ]

@@ -7,13 +7,6 @@ import csv
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def home(request):
-	title = 'Stock Management Project'
-	context = {
-	"title": title,
-	}
-	return render(request, "home.html",context)
-
 def add_category(request):
 	form = CategoryCreateForm(request.POST or None)
 	if form.is_valid():
