@@ -55,6 +55,15 @@
         </header>
 
         <main role="main" class="inner cover">	
+            <br>
+            {% for message in messages %}
+            <div style="background-color: white; color: black;" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            {% endfor %}    
             <br><br><br><br><br><br><br><br>
         <div class="header">{{title}}</div>
         <br><br><br><br>
@@ -78,16 +87,7 @@
           </table>
           <br><br>
         </div>
-        <div class='cover-container d-flex w-100 h-100 mx-auto flex-column'>
-            {% if messages %}
-                <ul  class="messages">
-                       {% for message in messages %}
-                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                       {% endfor %}
-               </ul>
-                 {% endif %}
-      
-        </div>
+        
         </main>
 
         <footer class="mastfoot mt-auto">

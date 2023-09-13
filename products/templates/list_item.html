@@ -46,7 +46,16 @@
 
     <body>
             <main role="main" class="inner cover">	  
-               
+                <br>
+            {% for message in messages %}
+            <div style="background-color: white; color: black;" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            {% endfor %}
+            
                 <br><br><br><br><br><br><br><div class="header">{{title}}</div><br><br>
                 
             <div class="row"><!--Start of row-->
@@ -61,7 +70,7 @@
                     <br>
                     <br>
                     <a href="/add_item"><div class="btn btn-primary mybutton">Add Items</div></a><br><br>
-                    <a href="/list_history"><div class="btn btn-primary mybutton">List History</div></a><br><br>
+                    <a href="/list_history"><div class="btn btn-primary mybutton">Stock History</div></a><br><br>
                     <a href="/add_category"><div class="btn btn-primary mybutton">Add Category</div></a><br>
                 </div>
                 <tbody >
@@ -103,14 +112,7 @@
                         {% endfor %}
                     </table>
                     
-                        <br>
-                        {% if messages %}
-                            <ul  class="messages">
-                                {% for message in messages %}
-                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                {% endfor %}
-                        </ul>
-                            {% endif %}
+                      
                     
                 </div>
                 </tbody>

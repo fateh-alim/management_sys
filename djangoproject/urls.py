@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from stockmgmt import views as mg_views
 from login_auth import views as login_views
+from products import views as prod_views
 from django.urls import include
 
 urlpatterns = [
@@ -24,15 +25,15 @@ urlpatterns = [
     path('signin/', login_views.signin, name='Signin'),
     path('signup/', login_views.signup, name='Signup'),
     path('signout/', login_views.signout, name='Signout'),
-    path('list_item/', mg_views.list_item, name='list_item'),
-    path('add_item/', mg_views.add_item, name='add_item'),
-    path('add_category/', mg_views.add_category, name='add_category'),
-    path('update_item/<str:pk>/', mg_views.update_item, name="update_item"),
-    path('delete_item/<str:pk>/', mg_views.delete_item, name="delete_item"),
+    path('list_item/', prod_views.list_item, name='list_item'),
+    path('add_item/', prod_views.add_item, name='add_item'),
+    path('add_category/', prod_views.add_category, name='add_category'),
+    path('update_item/<str:pk>/', prod_views.update_item, name="update_item"),
+    path('delete_item/<str:pk>/', prod_views.delete_item, name="delete_item"),
     path('stock_detail/<str:pk>/', mg_views.stock_detail, name="stock_detail"),
     path('issue_item/<str:pk>/', mg_views.issue_item, name="issue_item"),
     path('receive_item/<str:pk>/', mg_views.receive_item, name="receive_item"),
-    path('reorder_level/<str:pk>/', mg_views.reorder_level, name="reorder_level"),
+    path('reorder_level/<str:pk>/', prod_views.reorder_level, name="reorder_level"),
     path('account/', include('registration.backends.default.urls')),
     path('list_history/', mg_views.list_history, name='list_history'),
     path('admin/', admin.site.urls),

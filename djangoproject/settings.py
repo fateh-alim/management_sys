@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'stockmgmt',
     'login_auth',
+    'products',
     
     
 ]
