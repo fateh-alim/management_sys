@@ -18,9 +18,12 @@ from django.urls import path
 from stockmgmt import views as mg_views
 from login_auth import views as login_views
 from products import views as prod_views
+from api import views as API_views
 from django.urls import include
-
+from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
+    path('stocks/', API_views.stocking_list, name='Stocking_list'),
+    path('stocks/<int:id>', API_views.stocking_detail, name='Stocking_detail'),
     path('', login_views.home, name='home'),
     path('signin/', login_views.signin, name='Signin'),
     path('signup/', login_views.signup, name='Signup'),
@@ -38,3 +41,5 @@ urlpatterns = [
     path('list_history/', mg_views.list_history, name='list_history'),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
