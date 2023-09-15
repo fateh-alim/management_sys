@@ -1,0 +1,121 @@
+
+{%load static%}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v3.8.6">
+        <title>{{title}}</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
+
+
+        <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
+
+        
+ 
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+        
+
+        <!-- Custom styles for this template -->
+        <script src="https://kit.fontawesome.com/66e5ad36de.js" crossorigin="anonymous"></script>
+        <link href="{% static 'css/cover.css' %}" rel="stylesheet">
+    </head>
+    <body>
+    <div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
+            <header class="masthead mb-auto">
+                <div class="inner">
+                    {% if request.user.is_authenticated %}
+                    <a href="/"><h3 class="masthead-brand" style='color:white;'>ARBISOFT</h3></a>
+                    {% else %}
+                    <h3 class="masthead-brand" style='color:white;'>ARBISOFT</h3>
+                    {% endif %}
+                    {% include 'navbar.html' %}
+                </div>
+            </header>
+
+    <main role="main" class="inner cover">	
+        <br><br><br><br><br><br><br><br><div class="header">{{title}}</div><br><br>
+        <div class="row"><!--Start of row-->
+            <div class="col-sm-2">
+                <br><br>
+                    <div class="table-striped table-sm">     
+                        <form  method='POST' action='' >{% csrf_token %} 
+                            
+                            {{form|crispy}}
+                            <div><input style="background-color: #282828;" class="btn btn-primary mybutton" type="submit" value='Search' /></div> 
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <a href="/add_item"><div class="btn btn-primary mybutton">Add Items</div></a><br><br>
+                    <a href="/list_item"><div class="btn btn-primary mybutton">List Items</div></a><br>
+            </div>
+
+            <div class="col-sm-10">
+                <tbody>
+                
+                    <table class="table">
+                        
+                            <tr>
+                            <th>COUNT</th>
+                            <th>ID</th>
+                            <th>CATEGORY</th>
+                            <th>ITEM NAME</th>
+                            <th>QUANTITY IN STORE</th>
+                            <th>ISSUE QUANTITY</th>
+                            <th>RECEIVE QUANTITY</th>
+                            <th>LAST UPDATED</th>
+                            </tr>
+                        
+                        {% for instance in queryset %}
+                            <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{instance.id}}</td>
+                            <td>{{instance.category}}</td>
+                            <td>{{instance.item_name}}</td>
+                            <td>{{instance.quantity}}</td>
+                            <td>{{instance.issue_quantity}}</td>
+                            <td>{{instance.receive_quantity}}</td>
+                            <td>{{instance.last_updated}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+            </tbody>
+            </div>
+        
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <br><br><br><br><br><br>
+            <div class="inner">
+                <br><br><br><br><br><br><br><br><br><br><br><br>
+            <p>Fateh Ali Alim</p>
+            </div>
+        </footer>
+    </div>
+</body>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/pager/paging.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <script src="{% static 'js/nprogress/nprogress.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+</html>
