@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Stock, StockHistory, Category
+from .models import Products, StockHistory, Category
 from .forms import  IssueForm, ReceiveForm, StockHistorySearchForm
 from django.contrib import messages
 from django.http import HttpResponse
@@ -7,7 +7,7 @@ import csv
 from django.contrib.auth.decorators import login_required
 
 def stock_detail(request, pk):
-	queryset = Stock.objects.get(id=pk)
+	queryset = Products.objects.get(id=pk)
 	context = {
 		"title": queryset.item_name,
 		"queryset": queryset,
@@ -16,7 +16,7 @@ def stock_detail(request, pk):
 
 
 def issue_item(request, pk):
-	queryset = Stock.objects.get(id=pk)
+	queryset = Products.objects.get(id=pk)
 	form = IssueForm(request.POST or None, instance=queryset)
 
 	
@@ -53,7 +53,7 @@ def issue_item(request, pk):
 
 
 def receive_item(request, pk):
-	queryset = Stock.objects.get(id=pk)
+	queryset = Products.objects.get(id=pk)
 	form = ReceiveForm(request.POST or None, instance=queryset)
 
 	if form.is_valid():

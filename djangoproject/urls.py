@@ -22,13 +22,17 @@ from api import views as API_views
 from django.urls import include
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
-    path('stocks/', API_views.stocking_list, name='Stocking_list'),
-    path('stocks/<int:id>', API_views.stocking_detail, name='Stocking_detail'),
+    path('products/', API_views.products_list, name='Products_list'),
+    path('products/<int:id>', API_views.product_detail, name='Product_detail'),
+    path('category/', API_views.category_list, name='Category_list'),
+    path('category/<int:id>', API_views.category_detail, name='Category_detail'),
+
+    
     path('', login_views.home, name='home'),
     path('signin/', login_views.signin, name='Signin'),
     path('signup/', login_views.signup, name='Signup'),
     path('signout/', login_views.signout, name='Signout'),
-    path('list_item/', prod_views.list_item, name='list_item'),
+    path('list_products/', prod_views.list_products, name='list_products'),
     path('add_item/', prod_views.add_item, name='add_item'),
     path('add_category/', prod_views.add_category, name='add_category'),
     path('update_item/<str:pk>/', prod_views.update_item, name="update_item"),

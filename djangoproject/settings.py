@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'stockmgmt',
     'login_auth',
     'products',
+    'api',
     
     
 ]
