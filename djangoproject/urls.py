@@ -24,6 +24,7 @@ from product.API.views import (
     CategoryList,
     CategoryDetail)
 from stockmgmt.API.views import ProductsHistory
+from login_auth.API.views import SignUp, Login
 from django.urls import include
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
@@ -32,6 +33,8 @@ urlpatterns = [
     path('category/', CategoryList.as_view(), name='Category_list'),
     path('category/<int:id>',  CategoryDetail.as_view(), name='Category_detail'),
     path('history/', ProductsHistory.as_view(), name='Products_History'),
+    path('register/', SignUp.as_view(), name='user-registration'),
+    path('login/', Login.as_view(), name='user-login'),
 
     path('', login_views.home, name='home'),
     path('signin/', login_views.signin, name='Signin'),
