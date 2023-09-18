@@ -1,10 +1,10 @@
 from django import forms
-from .models import Products, Category
+from .models import Product, Category
 
 
-class ProductsCreateForm(forms.ModelForm):
+class ProductCreateForm(forms.ModelForm):
 	class Meta:
-		model = Products
+		model = Product
 		fields = ['category', 'item_name', 'quantity']
 
 	def clean_category(self):
@@ -25,21 +25,21 @@ class CategoryCreateForm(forms.ModelForm):
 		model = Category
 		fields = ['name']
 		
-class ProductsSearchForm(forms.ModelForm):
+class ProductSearchForm(forms.ModelForm):
    export_to_CSV = forms.BooleanField(required=False)
    class Meta:
-     model = Products
+     model = Product
      fields = ['category', 'item_name']
 
-class ProductsUpdateForm(forms.ModelForm):
+class ProductUpdateForm(forms.ModelForm):
 	class Meta:
-		model = Products
+		model = Product
 		fields = ['category', 'item_name', 'quantity']
 		
 
 class ReorderLevelForm(forms.ModelForm):
 	class Meta:
-		model = Products
+		model = Product
 		fields = ['reorder_level']
 
 

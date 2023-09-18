@@ -1,5 +1,5 @@
 from django.db import models
-from products.models import Category, Products
+from product.models import Category, Product
 
 class StockHistory(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)

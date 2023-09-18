@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Products, Category
-from .forms import ProductsCreateForm, ProductsSearchForm, ProductsUpdateForm, ReorderLevelForm, CategoryCreateForm
+from .models import Product, Category
+from .forms import ProductCreateForm, ProductSearchForm, ProductUpdateForm, ReorderLevelForm, CategoryCreateForm
 from django.contrib import messages
 from django.http import HttpResponse
 import csv
@@ -22,15 +22,15 @@ def add_category(request):
 @login_required
 def list_products(request):
 	title = 'List of Products'
-	form = ProductsSearchForm(request.POST or None)
-	queryset = Products.objects.all()
+	form = ProductSearchForm(request.POST or None)
+	queryset = Product.objects.all()
 	context = {
 		"title": title,
 		"queryset": queryset,
 		"form": form,
 	}
 	if request.method == 'POST':
-		queryset = Products.objects.filter(category=form['category'].value(),
+		queryset = Product.objects.filter(category=form['category'].value(),
 										item_name__icontains=form['item_name'].value()
 										)
 				
@@ -54,7 +54,7 @@ def list_products(request):
 
 @login_required
 def add_item(request):
-	form = ProductsCreateForm(request.POST or None)
+	form = ProductCreateForm(request.POST or None)
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Successfully Saved')
@@ -67,10 +67,10 @@ def add_item(request):
 
 @login_required
 def update_item(request, pk):
-	queryset = Products.objects.get(id=pk)
-	form = ProductsUpdateForm(instance=queryset)
+	queryset = Product.objects.get(id=pk)
+	form = ProductUpdateForm(instance=queryset)
 	if request.method == 'POST':
-		form = ProductsUpdateForm(request.POST, instance=queryset)
+		form = ProductUpdateForm(request.POST, instance=queryset)
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'Successfully Saved')
@@ -84,7 +84,7 @@ def update_item(request, pk):
 
 
 def delete_item(request, pk):
-	queryset = Products.objects.get(id=pk)
+	queryset = Product.objects.get(id=pk)
 	if request.method == 'POST':
 		queryset.delete()
 		messages.success(request, 'Successfully Saved')
@@ -92,7 +92,7 @@ def delete_item(request, pk):
 	return render(request, 'delete_item.html')
 
 def reorder_level(request, pk):
-	queryset = Products.objects.get(id=pk)
+	queryset = Product.objects.get(id=pk)
 	form = ReorderLevelForm(request.POST or None, instance=queryset)
 	if form.is_valid():
 		instance = form.save(commit=False)

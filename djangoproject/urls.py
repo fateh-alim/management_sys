@@ -17,17 +17,22 @@ from django.contrib import admin
 from django.urls import path
 from stockmgmt import views as mg_views
 from login_auth import views as login_views
-from products import views as prod_views
-from api import views as API_views
+from product import views as prod_views
+from product.API.views import (
+    ProductsList,
+    ProductDetail,
+    CategoryList,
+    CategoryDetail)
+from stockmgmt.API.views import ProductsHistory
 from django.urls import include
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
-    path('products/', API_views.products_list, name='Products_list'),
-    path('products/<int:id>', API_views.product_detail, name='Product_detail'),
-    path('category/', API_views.category_list, name='Category_list'),
-    path('category/<int:id>', API_views.category_detail, name='Category_detail'),
+    path('products/', ProductsList.as_view(), name='Products_list'),
+    path('products/<int:id>',ProductDetail.as_view(), name='Product_detail'),
+    path('category/', CategoryList.as_view(), name='Category_list'),
+    path('category/<int:id>',  CategoryDetail.as_view(), name='Category_detail'),
+    path('history/', ProductsHistory.as_view(), name='Products_History'),
 
-    
     path('', login_views.home, name='home'),
     path('signin/', login_views.signin, name='Signin'),
     path('signup/', login_views.signup, name='Signup'),
@@ -44,6 +49,8 @@ urlpatterns = [
     path('account/', include('registration.backends.default.urls')),
     path('list_history/', mg_views.list_history, name='list_history'),
     path('admin/', admin.site.urls),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+
