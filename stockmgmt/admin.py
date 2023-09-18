@@ -9,5 +9,5 @@ class StockCreateAdmin(admin.ModelAdmin):
    search_fields = ['category', 'item_name']
 
 
-admin.site.register(Stock, StockCreateAdmin)
+admin.site.register(Products, StockCreateAdmin)
 admin.site.register(Category)

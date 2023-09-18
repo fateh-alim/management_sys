@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Stock, Category
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, ReorderLevelForm, CategoryCreateForm
+from .models import Products, Category
+from .forms import ProductsCreateForm, ProductsSearchForm, ProductsUpdateForm, ReorderLevelForm, CategoryCreateForm
 from django.contrib import messages
 from django.http import HttpResponse
 import csv
@@ -12,7 +12,7 @@ def add_category(request):
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Successfully Created')
-		return redirect('/list_item')
+		return redirect('/list_products')
 	context = {
 		"form": form,
 		"title": "Add Category",
@@ -20,17 +20,17 @@ def add_category(request):
 	return render(request, "add_item.html", context)
 
 @login_required
-def list_item(request):
-	title = 'List of Items'
-	form = StockSearchForm(request.POST or None)
-	queryset = Stock.objects.all()
+def list_products(request):
+	title = 'List of Products'
+	form = ProductsSearchForm(request.POST or None)
+	queryset = Products.objects.all()
 	context = {
 		"title": title,
 		"queryset": queryset,
 		"form": form,
 	}
 	if request.method == 'POST':
-		queryset = Stock.objects.filter(category=form['category'].value(),
+		queryset = Products.objects.filter(category=form['category'].value(),
 										item_name__icontains=form['item_name'].value()
 										)
 				
@@ -49,16 +49,16 @@ def list_item(request):
 		"title": title,
 		"queryset": queryset,
 		}
-	return render(request, "list_item.html", context)
+	return render(request, "list_products.html", context)
 
 
 @login_required
 def add_item(request):
-	form = StockCreateForm(request.POST or None)
+	form = ProductsCreateForm(request.POST or None)
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Successfully Saved')
-		return redirect('/list_item')
+		return redirect('/list_products')
 	context = {
 		"form": form,
 		"title": "Add Items",
@@ -67,39 +67,39 @@ def add_item(request):
 
 @login_required
 def update_item(request, pk):
-	queryset = Stock.objects.get(id=pk)
-	form = StockUpdateForm(instance=queryset)
+	queryset = Products.objects.get(id=pk)
+	form = ProductsUpdateForm(instance=queryset)
 	if request.method == 'POST':
-		form = StockUpdateForm(request.POST, instance=queryset)
+		form = ProductsUpdateForm(request.POST, instance=queryset)
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'Successfully Saved')
-			return redirect('/list_item')
+			return redirect('/list_products')
 
 	context = {
 		'form':form,
-		"title": "Update Item Details",
+		"title": "Update Product Details",
 	}
 	return render(request, 'add_item.html', context)
 
 
 def delete_item(request, pk):
-	queryset = Stock.objects.get(id=pk)
+	queryset = Products.objects.get(id=pk)
 	if request.method == 'POST':
 		queryset.delete()
 		messages.success(request, 'Successfully Saved')
-		return redirect('/list_item')
+		return redirect('/list_products')
 	return render(request, 'delete_item.html')
 
 def reorder_level(request, pk):
-	queryset = Stock.objects.get(id=pk)
+	queryset = Products.objects.get(id=pk)
 	form = ReorderLevelForm(request.POST or None, instance=queryset)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 		messages.success(request, "Reorder level for " + str(instance.item_name) + " is updated to " + str(instance.reorder_level))
 
-		return redirect("/list_item")
+		return redirect("/list_products")
 	context = {
 			"instance": queryset,
 			"form": form,

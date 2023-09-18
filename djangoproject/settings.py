@@ -36,6 +36,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'registration', #should be immediately above 'django.contrib.auth'
+    'rest_framework',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'stockmgmt',
     'login_auth',
     'products',
+    'api',
     
     
 ]
